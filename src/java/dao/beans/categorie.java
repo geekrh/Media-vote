@@ -24,9 +24,12 @@ public class categorie implements Serializable{
         this.liste_media = liste_media;
         this.nbr_media = nbr_media;
     }
-
+    
     public categorie(int id_categorie) {
         this.id_categorie = id_categorie;
+    }
+
+    public categorie() {
     }
     
 

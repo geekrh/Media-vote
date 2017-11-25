@@ -7,6 +7,7 @@ package Controller;
 
 import Modele.modele_membre;
 import Modele.model_media;
+import dao.beans.categorie;
 import dao.daomedia ;
 import dao.beans.membre;
 import dao.daomembre ;
@@ -64,7 +65,7 @@ public class media extends HttpServlet {
     /* Et pour terminer, si rien n'a été trouvé... */
     return null;
 }
-    
+
   private void cpy(Path src,Path dst) throws IOException
   {
       Files.copy(src, dst, StandardCopyOption.REPLACE_EXISTING) ;
@@ -129,7 +130,7 @@ private void ecrireFichier( Part part, String nomFichier, String chemin ) throws
           * dans le web.xml
            */  String chemin = this.getServletConfig().getInitParameter( CHEMIN );
            
-           
+            int id_categorie=Integer.parseInt(request.getParameter("categorie"));
             String desc =  request.getParameter("description") ;
             String titre  = request.getParameter("titre") ; // titre du media 
            
@@ -157,7 +158,7 @@ private void ecrireFichier( Part part, String nomFichier, String chemin ) throws
                
     
     String Exist="false" ;
-           lst = m.affichermedia() ;
+           lst = m.affichermedia();
            
             for (Map<String, String> entry : lst) {
              
@@ -169,8 +170,12 @@ private void ecrireFichier( Part part, String nomFichier, String chemin ) throws
             }
             
                
-              if( Exist.equals("false")) { 
-             m.ajoutmedia(titre, desc, "image/"+nomFichier);  // Ajout du nouveau MEDIA
+              if( Exist.equals("false")) 
+              { 
+             categorie c=new categorie(id_categorie);
+             dao.beans.media media_ajouter=new dao.beans.media(titre, desc,"image/"+nomFichier,c,0);
+             m.ajoutmedia(media_ajouter);
+             // Ajout du nouveau MEDIA
              
              /*
               List<Map<String, String>> lst = new ArrayList<Map<String, String>>(); 
@@ -178,7 +183,7 @@ private void ecrireFichier( Part part, String nomFichier, String chemin ) throws
              
             lst= new ArrayList<Map<String, String>>();
              
-             lst = m.affichermedia() ;
+             lst = m.afficherFilm() ;
              
                     // lst.add(m.afficherMediaRecent(titre));
               
@@ -187,8 +192,8 @@ private void ecrireFichier( Part part, String nomFichier, String chemin ) throws
               
               ecrireFichier(part,nomFichier,chemin ) ; // APPEL DU KING #
             
-              Path dst = Paths.get("C:/Users/codex_000/Documents/NetBeansProjects/Mvote/VOTEE/Vote/web/image/"+nomFichier);
-              Path src = Paths.get("C:/image/"+nomFichier);
+              Path dst = Paths.get("C:\\Users\\hamdi\\Documents\\NetBeansProjects\\Md-vote\\web\\image\\"+nomFichier);
+              Path src = Paths.get("C:\\image\\"+nomFichier);
               cpy(src,dst) ;
               RequestDispatcher rd = request.getRequestDispatcher("page_principale.jsp");
               

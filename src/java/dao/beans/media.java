@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Mohammmed Mehdi Sarray#
+ * @author H_A_M#
  */
 public class media {
     private int id_media;
@@ -19,6 +19,15 @@ public class media {
     private categorie categorie;
     private ArrayList<vote> vote; 
     private int nbvote ;
+
+    public media(String libelle, String description, String url_media, categorie categorie, int nbvote) {
+        this.libelle = libelle;
+        this.description = description;
+        this.url_media = url_media;
+        this.categorie = categorie;
+        this.nbvote = nbvote;
+    }
+    
     public media(int id_media, String libelle, String description, String url_media, categorie categorie, ArrayList<vote> vote) {
         this.id_media = id_media;
         this.libelle = libelle;

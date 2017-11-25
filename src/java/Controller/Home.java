@@ -7,22 +7,21 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import dao.daomedia ;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import dao.*;
 /**
  *
- * @author H_A_M#
+ * @author hamdi
  */
-public class voter extends HttpServlet {
-
+public class Home extends HttpServlet {
+   dao.daomedia m=new dao.daomedia();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,29 +31,21 @@ public class voter extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private daomedia d = new daomedia();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-      
-            
-             if (request.getParameter("action").equals("voter") )
-           {
-               //int numvote =(int) request.getAttribute("valeur") ;
-            
-               d.vote(Integer.parseInt(request.getParameter("id")));
-              //response.sendRedirect("redirect.jsp");
-              List<Map<String, String>> lst = new ArrayList<Map<String, String>>(); 
-                       lst = d.afficherFilm() ; 
+                       if(request.getParameter("home").equals("home"))
+            {
+                  List<Map<String, String>> lst = new ArrayList<Map<String, String>>(); 
+                       lst = m.afficherFilm() ; 
                        request.setAttribute("listmedia", lst);
                 
                 RequestDispatcher rd = request.getRequestDispatcher("page_principale.jsp");
                 rd.forward(request, response);
-           }
-            
-        }
+            }
+    }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -95,5 +86,6 @@ public class voter extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
+
+

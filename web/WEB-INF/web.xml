@@ -25,6 +25,14 @@
         <servlet-name>voter</servlet-name>
         <servlet-class>Controller.voter</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Home</servlet-name>
+        <servlet-class>Controller.Home</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Profil</servlet-name>
+        <servlet-class>Controller.Profil</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Connection</servlet-name>
         <url-pattern>/Connection</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>voter</servlet-name>
         <url-pattern>/voter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Profil</servlet-name>
+        <url-pattern>/Profil</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

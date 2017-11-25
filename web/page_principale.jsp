@@ -1,19 +1,10 @@
-
-<%
-    if(session.getAttribute("model") == null)
-    {
-       response.sendRedirect("return_home");
-       
-       
-    }
-%>
-
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
-
 <%@ page import="java.util.*" %>
-
+<%@ page import="dao.beans.*" %>
 
 <!DOCTYPE html>
+
+
 <html>
      <head>
 
@@ -35,33 +26,7 @@
   <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Vote challenge</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Profile</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="Addmedia.jsp">Add</a>
-                </li>
-            <li class="nav-item">
-              <a class="nav-link" href="index.jsp">Log out</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
+    <%@include file="nav.jsp" %>
     <!-- Page Content -->
     <div class="container">
 

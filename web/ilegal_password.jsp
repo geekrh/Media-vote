@@ -17,18 +17,16 @@
       <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        
+        <form method="post" action="Connection" >
   <div class="cotn_principal">
 <div class="cont_centrar">
 
   <div class="cont_login" >
       <h1>ilegal  Password</h1><br>
-       <a class="nav-link" href="http://localhost:8089/Vote/index.jsp">go back home</a>
-
-  
-  </div>
+      <input type="submit" name="back" value="go back home">
+</div>
  </div>
 </div>
-    
+    </form>
     </body>
 </html>

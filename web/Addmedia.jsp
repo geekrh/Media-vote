@@ -30,11 +30,7 @@
     </head>
     <body >
         <form action="media" method="POST" enctype="multipart/form-data" >
-             <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-     
-        <a class="navbar-brand" href="#"> Ajouter Media </a>
-        
-    </nav>
+            <%@include file="nav.jsp" %>
             <br><br><br>
             <fieldset style="margin-right: 10%;">
                
@@ -48,13 +44,22 @@
                 <input type="text" id="description" name="description" value="" required/>
                 <br />
                 <br>
+                Categorie Media 
+                <Select name="categorie">
+                    <option value="1">Film</option>
+                    <option value="2">Jeux</option>
+                    <option value="3">Serie</option>
+                    <option value="4">Livre</option>
+                </Select>
+                <br><br>
                 <label for="fichier">Emplacement du fichier <span class="requis">*</span></label>
                 <input type="file" id="fichier" name="fichier"  accept="image/x-png,image/gif,image/jpeg"/>
                 <br />
                 <br>
                 <label for="fichier"> <%  String s = null ;
+                s  = (String) request.getAttribute("Message") ;
                                            if (s != null) { 
-                                          s  = (String) request.getAttribute("Message") ;
+                                          
                                                 out.print(s) ; }
                                                                 %> <span class="requis">*</span></label>
                 <input type="submit" name="plus" value="Envoyer"  />

@@ -45,8 +45,13 @@ public class Connection extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
           String f = request.getParameter("logme"); 
-         
-        
+          
+           if (request.getParameter("back")!=null)
+           {
+             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+              
+             rd.forward(request, response);
+           }
           if (f.equals("d")){
              
               String login = request.getParameter("l1") ;
@@ -65,14 +70,16 @@ public class Connection extends HttpServlet {
              
             if (rep) { 
                  List<Map<String, String>> lst = new ArrayList<Map<String, String>>(); 
-                       lst = media.affichermedia() ; 
+                       lst = media.afficherFilm(); 
                        request.setAttribute("listmedia", lst);
                 
                 RequestDispatcher rd = request.getRequestDispatcher("page_principale.jsp");
                 rd.forward(request, response);
             }
-            else {RequestDispatcher rd = request.getRequestDispatcher("ilegal_password.jsp");
-             rd.forward(request, response); }
+            else {
+             RequestDispatcher rd = request.getRequestDispatcher("ilegal_password.jsp");
+             rd.forward(request, response); 
+            }
           }
           
           
@@ -93,22 +100,24 @@ public class Connection extends HttpServlet {
               rd.forward(request, response);
                 }
               
-              else{ 
+              else
+          { 
                    membre m = new membre(user,Password,Integer.parseInt(cin),nom,prenom,Email,"GUEST") ;
                   md.ajouter_membre(m);
                
               RequestDispatcher rd = request.getRequestDispatcher("page_principale.jsp");
               
-              rd.forward(request, response); }
+              rd.forward(request, response);
           }
-             
-            
+          }
+          
           if (request.getParameter("return").equals("ret"))
           {
                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
               
              rd.forward(request, response);
           }
+
           
           
         }

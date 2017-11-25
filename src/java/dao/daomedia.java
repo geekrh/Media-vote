@@ -19,14 +19,13 @@ import utilitaire.SingletonConnection;
  * @author Mohammed Mehdi Sarray#
  */
 public class daomedia implements interface_dao_media {
-    private categorie c = new categorie (000) ;
-    private media m= new media(1,"pp","sur ecoute","image/batman.jpg",c ,3 ) ;
-    
+    dao.beans.media med=new dao.beans.media();
+        dao.beans.categorie cat=new dao.beans.categorie();
+        
     
     
     public  List<Map<String, String>> affichermedia () 
     {
-        
         List<Map<String, String>> maListe = new ArrayList<Map<String, String>>();
          
         
@@ -37,21 +36,21 @@ public class daomedia implements interface_dao_media {
             ResultSet rs=ps.executeQuery();
              while (rs.next()) {
             Map<String, String> news = new HashMap<String, String>();     
-            m.setId_media(rs.getInt("id_media"));
-            m.setLibelle(rs.getString("libelle"));
-            m.setDescription(rs.getString("description"));
-            m.setUrl_media(rs.getString("url_media"));
-            c.setId_categorie(rs.getInt("id_cat"));
-            m.setNbvote(rs.getInt("nbr_vote"));
+            med.setId_media(rs.getInt("id_media"));
+            med.setLibelle(rs.getString("libelle"));
+            med.setDescription(rs.getString("description"));
+            med.setUrl_media(rs.getString("url_media"));
+            cat.setId_categorie(rs.getInt("id_cat"));
+            med.setNbvote(rs.getInt("nbr_vote"));
            
              
-            String id = Integer.toString(m.getId_media())   ;
+            String id = Integer.toString(med.getId_media())   ;
             
             news.put("id", id);
-            news.put("url",m.getUrl_media()) ;
-            news.put("titre",m.getLibelle());
-            news.put("description", m.getDescription()) ;
-            news.put("nbv",String.valueOf(m.getNbvote())) ;
+            news.put("url",med.getUrl_media()) ;
+            news.put("titre",med.getLibelle());
+            news.put("description", med.getDescription()) ;
+            news.put("nbv",String.valueOf(med.getNbvote())) ;
             
              maListe.add(news);
             
@@ -67,18 +66,18 @@ public class daomedia implements interface_dao_media {
       return maListe ;
     }
     
-    public void ajoutmedia(String lib,String desc , String url) {
+    public void ajoutmedia(media m) {
         
           
          try {
             Connection con=SingletonConnection.getCon();
             PreparedStatement ps=con.prepareStatement("insert into media(libelle,description,url_media,id_cat,nbr_vote) values (?,?,?,?,?) ");
  
-            ps.setString(1,lib);
-            ps.setString(2, desc);
-            ps.setString(3, url);
-            ps.setInt(4, 111);
-            ps.setInt(5, 000);
+            ps.setString(1,m.getLibelle());
+            ps.setString(2, m.getDescription());
+            ps.setString(3, m.getUrl_media());
+            ps.setInt(4, m.getCategorie().getId_categorie());
+            ps.setInt(5, m.getNbvote());
             
             ps.executeUpdate();
            
@@ -91,7 +90,7 @@ public class daomedia implements interface_dao_media {
         }
     }
 
-      public  Map<String, String> afficherMediaRecent (String lib) 
+    public  Map<String, String> afficherMediaRecent (String lib) 
     {
         
        Map<String, String> news = new HashMap<String, String>(); ;
@@ -105,17 +104,17 @@ public class daomedia implements interface_dao_media {
             
              while (rs.next()) {
           //  Map<String, String> newss = new HashMap<String, String>();     
-            m.setId_media(rs.getInt("id_media"));
-            m.setLibelle(rs.getString("libelle"));
-            m.setDescription(rs.getString("description"));
-            m.setUrl_media(rs.getString("url_media"));
-            c.setId_categorie(rs.getInt("id_cat"));
-            m.setNbvote(rs.getInt("nbr_vote"));
+            med.setId_media(rs.getInt("id_media"));
+            med.setLibelle(rs.getString("libelle"));
+            med.setDescription(rs.getString("description"));
+            med.setUrl_media(rs.getString("url_media"));
+            cat.setId_categorie(rs.getInt("id_cat"));
+            med.setNbvote(rs.getInt("nbr_vote"));
             
-            news.put("url",m.getUrl_media()) ;
-            news.put("titre",m.getLibelle());
-            news.put("description", m.getDescription()) ;
-            news.put("nbv",String.valueOf(m.getNbvote())) ;
+            news.put("url",med.getUrl_media()) ;
+            news.put("titre",med.getLibelle());
+            news.put("description", med.getDescription()) ;
+            news.put("nbv",String.valueOf(med.getNbvote())) ;
             
             
             
@@ -145,17 +144,17 @@ public class daomedia implements interface_dao_media {
             ResultSet rs=ps.executeQuery();
              while (rs.next()) {
             Map<String, String> news = new HashMap<String, String>();     
-            m.setId_media(rs.getInt("id_media"));
-            m.setLibelle(rs.getString("libelle"));
-            m.setDescription(rs.getString("description"));
-            m.setUrl_media(rs.getString("url_media"));
-            c.setId_categorie(rs.getInt("id_cat"));
-            m.setNbvote(rs.getInt("nbr_vote"));
+            med.setId_media(rs.getInt("id_media"));
+            med.setLibelle(rs.getString("libelle"));
+            med.setDescription(rs.getString("description"));
+            med.setUrl_media(rs.getString("url_media"));
+            cat.setId_categorie(rs.getInt("id_cat"));
+            med.setNbvote(rs.getInt("nbr_vote"));
             
-            news.put("url",m.getUrl_media()) ;
-            news.put("titre",m.getLibelle());
-            news.put("description", m.getDescription()) ;
-            news.put("nbv",String.valueOf(m.getNbvote())) ;
+            news.put("url",med.getUrl_media()) ;
+            news.put("titre",med.getLibelle());
+            news.put("description", med.getDescription()) ;
+            news.put("nbv",String.valueOf(med.getNbvote())) ;
             
              maListe.add(news);
             
@@ -183,17 +182,17 @@ public class daomedia implements interface_dao_media {
             ResultSet rs=ps.executeQuery();
              while (rs.next()) {
             Map<String, String> news = new HashMap<String, String>();     
-            m.setId_media(rs.getInt("id_media"));
-            m.setLibelle(rs.getString("libelle"));
-            m.setDescription(rs.getString("description"));
-            m.setUrl_media(rs.getString("url_media"));
-            c.setId_categorie(rs.getInt("id_cat"));
-            m.setNbvote(rs.getInt("nbr_vote"));
+            med.setId_media(rs.getInt("id_media"));
+            med.setLibelle(rs.getString("libelle"));
+            med.setDescription(rs.getString("description"));
+            med.setUrl_media(rs.getString("url_media"));
+            cat.setId_categorie(rs.getInt("id_cat"));
+            med.setNbvote(rs.getInt("nbr_vote"));
             
-            news.put("url",m.getUrl_media()) ;
-            news.put("titre",m.getLibelle());
-            news.put("description", m.getDescription()) ;
-            news.put("nbv",String.valueOf(m.getNbvote())) ;
+            news.put("url",med.getUrl_media()) ;
+            news.put("titre",med.getLibelle());
+            news.put("description", med.getDescription()) ;
+            news.put("nbv",String.valueOf(med.getNbvote())) ;
             
              maListe.add(news);
             
@@ -221,17 +220,17 @@ public class daomedia implements interface_dao_media {
             ResultSet rs=ps.executeQuery();
              while (rs.next()) {
             Map<String, String> news = new HashMap<String, String>();     
-            m.setId_media(rs.getInt("id_media"));
-            m.setLibelle(rs.getString("libelle"));
-            m.setDescription(rs.getString("description"));
-            m.setUrl_media(rs.getString("url_media"));
-            c.setId_categorie(rs.getInt("id_cat"));
-            m.setNbvote(rs.getInt("nbr_vote"));
+            med.setId_media(rs.getInt("id_media"));
+            med.setLibelle(rs.getString("libelle"));
+            med.setDescription(rs.getString("description"));
+            med.setUrl_media(rs.getString("url_media"));
+            cat.setId_categorie(rs.getInt("id_cat"));
+            med.setNbvote(rs.getInt("nbr_vote"));
             
-            news.put("url",m.getUrl_media()) ;
-            news.put("titre",m.getLibelle());
-            news.put("description", m.getDescription()) ;
-            news.put("nbv",String.valueOf(m.getNbvote())) ;
+            news.put("url",med.getUrl_media()) ;
+            news.put("titre",med.getLibelle());
+            news.put("description", med.getDescription()) ;
+            news.put("nbv",String.valueOf(med.getNbvote())) ;
             
              maListe.add(news);
             
@@ -259,17 +258,17 @@ public class daomedia implements interface_dao_media {
             ResultSet rs=ps.executeQuery();
              while (rs.next()) {
             Map<String, String> news = new HashMap<String, String>();     
-            m.setId_media(rs.getInt("id_media"));
-            m.setLibelle(rs.getString("libelle"));
-            m.setDescription(rs.getString("description"));
-            m.setUrl_media(rs.getString("url_media"));
-            c.setId_categorie(rs.getInt("id_cat"));
-            m.setNbvote(rs.getInt("nbr_vote"));
+            med.setId_media(rs.getInt("id_media"));
+            med.setLibelle(rs.getString("libelle"));
+            med.setDescription(rs.getString("description"));
+            med.setUrl_media(rs.getString("url_media"));
+            cat.setId_categorie(rs.getInt("id_cat"));
+            med.setNbvote(rs.getInt("nbr_vote"));
             
-            news.put("url",m.getUrl_media()) ;
-            news.put("titre",m.getLibelle());
-            news.put("description", m.getDescription()) ;
-            news.put("nbv",String.valueOf(m.getNbvote())) ;
+            news.put("url",med.getUrl_media()) ;
+            news.put("titre",med.getLibelle());
+            news.put("description", med.getDescription()) ;
+            news.put("nbv",String.valueOf(med.getNbvote())) ;
             
              maListe.add(news);
             
@@ -300,5 +299,8 @@ public class daomedia implements interface_dao_media {
              Logger.getLogger(daomedia.class.getName()).log(Level.SEVERE, null, ex);
         }
 }
+
+
+
 
 }

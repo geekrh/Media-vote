@@ -5,6 +5,7 @@
  */
 package dao;
 
+import dao.beans.media;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,6 @@ import java.util.Map;
  */
 public interface interface_dao_media {
     List<Map<String, String>> affichermedia() ;
-    void ajoutmedia(String lib,String desc , String url) ;
+    void ajoutmedia(media m) ;
       Map<String, String> afficherMediaRecent (String lib) ;
 }
