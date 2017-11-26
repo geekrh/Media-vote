@@ -6,6 +6,7 @@
 package dao;
 import dao.beans.media ;
 import dao.beans.categorie ;
+import static java.lang.System.out;
 import java.util.* ; 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,11 +20,58 @@ import utilitaire.SingletonConnection;
  * @author Mohammed Mehdi Sarray#
  */
 public class daomedia implements interface_dao_media {
-    dao.beans.media med=new dao.beans.media();
+        dao.beans.media med=new dao.beans.media();
         dao.beans.categorie cat=new dao.beans.categorie();
         
     
-    
+    public int Nombre_Etoile(int j,int k)
+    {   
+        int i=0;
+         try {
+            Connection con=SingletonConnection.getCon();
+            PreparedStatement ps=con.prepareStatement("select SUM(nbr_vote) from media where id_cat=? ");
+            ps.setInt(1,k);
+            ResultSet result = ps.executeQuery();
+            result.next();
+            i=result.getInt(1);
+            
+            // on va trouver le nombre d'etoile d'un vote alors on fait l'equation suivante pour trouver
+            // le pourcentage d'un nombre de vote par rapport le nombre total
+            
+            
+            //si le media n'a pas aucun vote 
+            if (j==0)
+                return 0;
+            // fi le somme est supérieur a 0 // ce controle pour evite la division sur 0
+            else if (i!=0){  
+            
+            float x=(100*j)/i;
+                if (x>=80)
+                    return 5;
+                if (x>=60)
+                    return 4;
+                if (x>=40)
+                    return 3;
+                if (x>=20)
+                    return 2;
+                if (x>=0)
+                    return 1;
+                
+                
+            }
+            //si le somme est egal a 0 
+             else return 0 ;
+                            
+           
+            ps.close();
+              
+ 
+ 
+       } catch (SQLException ex) {
+            Logger.getLogger(daomembre.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+         return (1);
+    }
     public  List<Map<String, String>> affichermedia () 
     {
         List<Map<String, String>> maListe = new ArrayList<Map<String, String>>();
@@ -51,7 +99,7 @@ public class daomedia implements interface_dao_media {
             news.put("titre",med.getLibelle());
             news.put("description", med.getDescription()) ;
             news.put("nbv",String.valueOf(med.getNbvote())) ;
-            
+            news.put("nbr_etoile",String.valueOf(this.Nombre_Etoile(med.getId_media(),rs.getInt("id_cat"))));
              maListe.add(news);
             
              }
@@ -139,7 +187,7 @@ public class daomedia implements interface_dao_media {
         
          try {
             Connection con=SingletonConnection.getCon();
-            PreparedStatement ps=con.prepareStatement("select * from media where id_cat = 1 ");
+            PreparedStatement ps=con.prepareStatement("select * from media where id_cat = 1 order by nbr_vote desc");
             
             ResultSet rs=ps.executeQuery();
              while (rs.next()) {
@@ -150,11 +198,14 @@ public class daomedia implements interface_dao_media {
             med.setUrl_media(rs.getString("url_media"));
             cat.setId_categorie(rs.getInt("id_cat"));
             med.setNbvote(rs.getInt("nbr_vote"));
+            String id = Integer.toString(med.getId_media())   ;
             
+            news.put("id", id);
             news.put("url",med.getUrl_media()) ;
             news.put("titre",med.getLibelle());
             news.put("description", med.getDescription()) ;
             news.put("nbv",String.valueOf(med.getNbvote())) ;
+                 news.put("nbr_etoile",String.valueOf(this.Nombre_Etoile(med.getId_media(),rs.getInt("id_cat"))));
             
              maListe.add(news);
             
@@ -177,7 +228,7 @@ public class daomedia implements interface_dao_media {
         
          try {
             Connection con=SingletonConnection.getCon();
-            PreparedStatement ps=con.prepareStatement("select * from media where id_cat = 2 ");
+            PreparedStatement ps=con.prepareStatement("select * from media where id_cat = 2 order by nbr_vote desc");
             
             ResultSet rs=ps.executeQuery();
              while (rs.next()) {
@@ -188,11 +239,13 @@ public class daomedia implements interface_dao_media {
             med.setUrl_media(rs.getString("url_media"));
             cat.setId_categorie(rs.getInt("id_cat"));
             med.setNbvote(rs.getInt("nbr_vote"));
-            
+            String id = Integer.toString(med.getId_media())   ;
+            news.put("id", id);
             news.put("url",med.getUrl_media()) ;
             news.put("titre",med.getLibelle());
             news.put("description", med.getDescription()) ;
             news.put("nbv",String.valueOf(med.getNbvote())) ;
+                       news.put("nbr_etoile",String.valueOf(this.Nombre_Etoile(med.getId_media(),rs.getInt("id_cat"))));
             
              maListe.add(news);
             
@@ -215,7 +268,7 @@ public class daomedia implements interface_dao_media {
         
          try {
             Connection con=SingletonConnection.getCon();
-            PreparedStatement ps=con.prepareStatement("select * from media where id_cat = 3 ");
+            PreparedStatement ps=con.prepareStatement("select * from media where id_cat = 4 order by nbr_vote desc");
             
             ResultSet rs=ps.executeQuery();
              while (rs.next()) {
@@ -227,10 +280,13 @@ public class daomedia implements interface_dao_media {
             cat.setId_categorie(rs.getInt("id_cat"));
             med.setNbvote(rs.getInt("nbr_vote"));
             
+            String id = Integer.toString(med.getId_media())   ;
+            news.put("id", id);
             news.put("url",med.getUrl_media()) ;
             news.put("titre",med.getLibelle());
             news.put("description", med.getDescription()) ;
             news.put("nbv",String.valueOf(med.getNbvote())) ;
+                news.put("nbr_etoile",String.valueOf(this.Nombre_Etoile(med.getId_media(),rs.getInt("id_cat"))));
             
              maListe.add(news);
             
@@ -253,7 +309,7 @@ public class daomedia implements interface_dao_media {
         
          try {
             Connection con=SingletonConnection.getCon();
-            PreparedStatement ps=con.prepareStatement("select * from media where id_cat = 4 ");
+            PreparedStatement ps=con.prepareStatement("select * from media where id_cat = 3 order by nbr_vote desc");
             
             ResultSet rs=ps.executeQuery();
              while (rs.next()) {
@@ -264,11 +320,14 @@ public class daomedia implements interface_dao_media {
             med.setUrl_media(rs.getString("url_media"));
             cat.setId_categorie(rs.getInt("id_cat"));
             med.setNbvote(rs.getInt("nbr_vote"));
-            
+            String id = Integer.toString(med.getId_media())   ;
+            news.put("id", id);
             news.put("url",med.getUrl_media()) ;
             news.put("titre",med.getLibelle());
             news.put("description", med.getDescription()) ;
             news.put("nbv",String.valueOf(med.getNbvote())) ;
+            news.put("nbr_etoile",String.valueOf(this.Nombre_Etoile(med.getId_media(),rs.getInt("id_cat"))));
+            
             
              maListe.add(news);
             
@@ -299,7 +358,32 @@ public class daomedia implements interface_dao_media {
              Logger.getLogger(daomedia.class.getName()).log(Level.SEVERE, null, ex);
         }
 }
-
+   public int SUMMEDIA(int a)
+   {
+   
+   
+    int i=0;
+         try {
+            Connection con=SingletonConnection.getCon();
+            PreparedStatement ps=con.prepareStatement("select SUM(nbr_vote) from media where id_cat=? ");
+            ps.setInt(1,a);
+            ResultSet result = ps.executeQuery();
+            result.next();
+            i=result.getInt(1);
+        
+           
+            ps.close();
+            return i;
+              
+ 
+ 
+       } catch (SQLException ex) {
+            Logger.getLogger(daomembre.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+         return 0;
+   
+   
+   }
 
 
 

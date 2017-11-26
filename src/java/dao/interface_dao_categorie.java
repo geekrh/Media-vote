@@ -5,8 +5,7 @@
  */
 package dao;
 
-import dao.beans.membre;
-import dao.daomedia ;
+import dao.beans.categorie;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +13,10 @@ import java.util.Map;
  *
  * @author hamdi
  */
-public interface interface_dao_membre {
-    membre verif(membre m);
-    void ajouter_membre(membre m);
-    
+public interface interface_dao_categorie {
+    void ajoutcategorie(categorie c);
+    void supprimermedia(int i);
+    void supprimercategorie(int i);
+    void mise_a_jour();
+     List<Map<String, String>> ListerCategorie();
 }

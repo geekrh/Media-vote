@@ -8,11 +8,11 @@
 <%@page import="dao.beans.media"%>
 <%@page import="dao.beans.membre"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="javax.servlet.http.HttpSession"%>
+<%@page import="javax.servlet.*"%>
 
 
 <%   
-    if(request.getAttribute("model") == null)
+    if(session.getAttribute("model") == null)
     {
        response.sendRedirect("index.jsp");
        
@@ -63,11 +63,12 @@ membre m=(membre)request.getAttribute("model");
     padding-left: 0.75em;
     padding-right: 0.75em;
     border: 2px groove (internal value);">
-     <label style="margin-left: 10%;">Nom :</label> <% m.getNom(); %>      <br>
-     <label style="margin-left: 10%;">Prenom :</label>  <% m.getPrenom(); %>  <br>  
-     <label style="margin-left: 10%;">Email :</label><% m.getEmail(); %>  <br>
-     <label style="margin-left: 10%;">Login :</label> <% m.getLogin(); %>   <br>
-     <label style="margin-left: 10%;">Password :</label> <% m.getPassword(); %> <br>  
+     <label style="margin-left: 10%;">Nom :</label> <%= m.getNom() %>      <br>
+     <label style="margin-left: 10%;">Prenom :</label>  <%= m.getPrenom() %>  <br> 
+     <label style="margin-left: 10%;">Email :</label>  <%= m.getEmail() %>  <br> 
+     <label style="margin-left: 10%;">Cin  :</label><%= m.getCin() %>  <br>
+     <label style="margin-left: 10%;">Login :</label> <%= m.getLogin() %>   <br>
+     <label style="margin-left: 10%;">Password :</label> <%= m.getPassword() %> <br>  
 
 
  </fieldset>

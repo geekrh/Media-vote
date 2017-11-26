@@ -24,6 +24,10 @@ public class personne implements Serializable{
         this.email = email;
     }
 
+    public personne() {
+    }
+    
+
     public int getCin() {
         return cin;
     }

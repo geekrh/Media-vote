@@ -15,7 +15,7 @@ import dao.interface_dao_membre;
 public class modele_membre {
     private membre membre;
     private interface_dao_membre intmembre;
-    public boolean verif(membre m)
+    public membre verif(membre m)
     {
         return intmembre.verif(m);
     }

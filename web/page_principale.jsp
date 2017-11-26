@@ -1,6 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*" %>
 <%@ page import="dao.beans.*" %>
+<%@ page import="static java.lang.System.out" %>
 
 <!DOCTYPE html>
 
@@ -62,10 +63,16 @@
                     <div class="card-body">
                         <h3 class="card-title"><%= entry.get("titre") %></h3>  
                          <p class="card-text"><%= entry.get("description") %></p>
-                         <span class="text-warning">&#9733; </span>
+                         <span class="text-warning"><% int a=Integer.parseInt(entry.get("nbr_etoile"));
+                            if (a!=0) 
+                            for (int i=0;i<a;i++)
+                             out.print("&#9733");
+                             %></span>
 			
                          <p class="v">   <%= entry.get("nbv") %> <br> <p/>
-                         <span><a href="voter?action=voter&id=<%= entry.get("id") %>" > voter </a> </span>
+                         <span>
+                             <a  href="voter?action=voter&id=<%= entry.get("id") %>" > voter </a>
+                         </span>
             </div>
           </div>
                        <%        

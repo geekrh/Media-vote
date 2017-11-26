@@ -7,6 +7,8 @@ package dao;
 
 import dao.* ;
 import dao.beans.*;
+
+import static java.lang.System.out;
 import java.util.* ;
 /**
  *
@@ -17,23 +19,18 @@ public class main {
     {  
         List<Map<String, String>> maListe = new ArrayList<Map<String, String>>();
         
-       daomedia m = new daomedia() ;
+        daocategorie m = new daocategorie();
       
-          maListe =  m.affichermedia() ;
+          maListe =  m.ListerCategorie() ;
         
-     
-               
-         int total = 0 ;
           
-         for (Map<String, String> entry : maListe) {
-                 
                   
-                   
+                   m.mise_a_jour();
                      
-                      System.out.print(entry+"\n"+maListe.indexOf(entry));
-                      System.out.print(total=maListe.indexOf(entry));
+                   //   System.out.print(entry+"\n"+maListe.indexOf(entry));
+                     // System.out.print(total=maListe.indexOf(entry));
                     // System.out.println(entry.get("nbv")) ;
-                  }
+                  
        
 
          }

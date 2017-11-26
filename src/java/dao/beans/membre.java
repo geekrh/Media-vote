@@ -29,6 +29,13 @@ public class membre extends personne{
         this.date_inscription = dateinsc ;
         this.type = Type ;
     }
+
+    public membre(String login, String password, int cin, String nom, String prenom, String email) {
+        super(cin, nom, prenom, email);
+        this.login = login;
+        this.password = password;
+    }
+    
     
     public membre(String login, String password, int cin, String nom, String prenom, String email ,String Type) {
         super(cin, nom, prenom, email);
@@ -38,6 +45,10 @@ public class membre extends personne{
        
     }
 
+    public membre(){
+        super();
+    }
+    
     public String getType() {
         return type;
     }

@@ -1,12 +1,10 @@
 <%-- 
-    Document   : Addmedia
-    Created on : 29 oct. 2017, 00:34:34
-    Author     : Mohammed Mehdi Sarray#
+    Document   : Addmedia_Admin
+    Created on : 26 nov. 2017, 13:43:13
+    Author     : hamdi
 --%>
 
-<%@ page pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,7 +29,7 @@
     </head>
     <body >
         <form action="media" method="POST" enctype="multipart/form-data" >
-            <%@include file="nav.jsp" %>
+            <%@include file="nav_Admin.jsp" %>
             <br><br><br>
             <fieldset style="margin-right: 10%;">
                

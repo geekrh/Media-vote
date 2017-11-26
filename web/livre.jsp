@@ -68,11 +68,14 @@
                     <div class="card-body">
                         <h3 class="card-title"><%= entry.get("titre") %></h3>  
                          <p class="card-text"><%= entry.get("description") %></p>
-                         <span class="text-warning">&#9733; </span>
+                         <span class="text-warning"><% int a=Integer.parseInt(entry.get("nbr_etoile"));
+                            if (a!=0) 
+                            for (int i=0;i<a;i++)
+                             out.print("&#9733");
+                             %></span>
 			<!-- <p class="card-text"><%= entry.get("nbv") %></p> -->
-                         <p class="v">   1.0 stars<br> <p/>
-              <span><button id="vote"><img src="image/voter.png" width="30" height="30"></button> voter</span>
-            </div>
+            <p class="v">   <%= entry.get("nbv") %> <br> <p/>
+                        <span><a href="voter?action=voter&id=<%= entry.get("id") %>" > voter </a> </span> </div>
           </div>
                        <%        
                              }

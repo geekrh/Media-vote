@@ -24,7 +24,7 @@ public class daomembre implements interface_dao_membre{
     java.sql.Timestamp timestamp = new java.sql.Timestamp(date.getTime());
      
     @Override
-    public boolean verif(membre m) {
+    public membre verif(membre m) {
          try {
              Connection con=SingletonConnection.getCon();
             PreparedStatement ps=con.prepareStatement("select * from member where Login=? and Password=?");
@@ -33,13 +33,14 @@ public class daomembre implements interface_dao_membre{
             ResultSet rs=ps.executeQuery();
             if (rs.next())
             { 
-               return true;
+               membre mem= new membre(rs.getString("login"),rs.getString("password"),rs.getInt("cin"),rs.getString("nom"),rs.getString("prenom"),rs.getString("email"),rs.getString("type"));
+               return mem;
             }
             ps.close();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         } 
-         return false;
+         return null;
     }
 
     @Override

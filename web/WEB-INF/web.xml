@@ -33,6 +33,14 @@
         <servlet-name>Profil</servlet-name>
         <servlet-class>Controller.Profil</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Categorie</servlet-name>
+        <servlet-class>Controller.Categorie</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Supprimer</servlet-name>
+        <servlet-class>Controller.Supprimer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Connection</servlet-name>
         <url-pattern>/Connection</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>Profil</servlet-name>
         <url-pattern>/Profil</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Categorie</servlet-name>
+        <url-pattern>/Categorie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Supprimer</servlet-name>
+        <url-pattern>/Supprimer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

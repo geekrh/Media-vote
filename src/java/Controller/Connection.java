@@ -9,6 +9,7 @@ import Modele.modele_membre;
 import Modele.model_media;
 import dao.daomedia ;
 import dao.beans.membre;
+import dao.daocategorie;
 import dao.daomembre ;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,6 +38,7 @@ public class Connection extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+     private daocategorie categorie=new daocategorie();
      private daomembre md=new daomembre();
      private daomedia media = new daomedia() ;
      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -45,7 +47,7 @@ public class Connection extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
           String f = request.getParameter("logme"); 
-          
+            HttpSession session = request.getSession();
            if (request.getParameter("back")!=null)
            {
              RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
@@ -59,26 +61,36 @@ public class Connection extends HttpServlet {
               
              
              /*session*/
-           HttpSession session = request.getSession();
-           membre m=new membre(login,password,0," "," "," "," ");
-           session.setAttribute("model", m);
+             membre m=new membre(login,password,0," "," "," "," ");
+
+       
            
            //
-            
-            boolean rep=md.verif(m);
+                
+                membre rep=md.verif(m);
            
              
-            if (rep) { 
-                 List<Map<String, String>> lst = new ArrayList<Map<String, String>>(); 
-                       lst = media.afficherFilm(); 
-                       request.setAttribute("listmedia", lst);
-                
-                RequestDispatcher rd = request.getRequestDispatcher("page_principale.jsp");
-                rd.forward(request, response);
+            if (rep!=null) {
+                    
+                     List<Map<String, String>> lst = new ArrayList<Map<String, String>>(); 
+                     lst = media.afficherFilm();
+                     List<Map<String, String>> lstcat = new ArrayList<Map<String, String>>();
+                     lstcat=categorie.ListerCategorie();
+                     request.setAttribute("listcategorie", lst);
+                     request.setAttribute("listmedia", lst);
+                     session.setAttribute("model", rep);
+                     if (rep.getType().equals("utilisateur")){
+                     RequestDispatcher rd = request.getRequestDispatcher("page_principale.jsp");
+                     rd.forward(request, response);}
+                    else 
+                    if (rep.getType().equals("admin"))
+                    { RequestDispatcher rda = request.getRequestDispatcher("Admin_page.jsp");
+                     rda.forward(request, response);
+                    }
             }
             else {
-             RequestDispatcher rd = request.getRequestDispatcher("ilegal_password.jsp");
-             rd.forward(request, response); 
+                     RequestDispatcher rd = request.getRequestDispatcher("ilegal_password.jsp");
+                     rd.forward(request, response); 
             }
           }
           
@@ -104,7 +116,8 @@ public class Connection extends HttpServlet {
           { 
                    membre m = new membre(user,Password,Integer.parseInt(cin),nom,prenom,Email,"GUEST") ;
                   md.ajouter_membre(m);
-               
+                 
+           session.setAttribute("model", m);
               RequestDispatcher rd = request.getRequestDispatcher("page_principale.jsp");
               
               rd.forward(request, response);

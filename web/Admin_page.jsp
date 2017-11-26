@@ -1,12 +1,16 @@
+<%-- 
+    Document   : Admin_page
+    Created on : 26 nov. 2017, 13:14:38
+    Author     : hamdi
+--%>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
-
 <%@ page import="java.util.*" %>
-<%@page import="java.util.Iterator" %>
-<%@page import="java.util.List"%>
-<%@page import="dao.beans.media" %>
-<%@page import="dao.daomedia" %>
+<%@ page import="dao.beans.*" %>
+<%@ page import="static java.lang.System.out" %>
 
 <!DOCTYPE html>
+
+
 <html>
      <head>
 
@@ -28,8 +32,7 @@
   <body>
 
     <!-- Navigation -->
-   <%@include file="nav.jsp" %>
-
+    <%@include file="nav_Admin.jsp" %>
     <!-- Page Content -->
     <div class="container">
 
@@ -39,7 +42,7 @@
           <h1 class="my-4">Vote</h1>
           <div class="list-group">
             <a href="film.jsp" class="list-group-item ">Film</a>
-            <a href="#" class="list-group-item "id="jeux">Jeux</a>
+            <a href="jeux.jsp" class="list-group-item "id="jeux">Jeux</a>
             <a href="livre.jsp" class="list-group-item ">Livre</a>
             <a href="serie.jsp" class="list-group-item ">Serie</a>
             
@@ -48,15 +51,16 @@
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9" id="contenu">
-         
-
+          
+       <form action="voter" method="GET" enctype="multipart/form-data" >
          <%  
-            daomedia modetud= new  daomedia();
-            List<Map<String, String>> maListe = modetud.afficherJeux();
             
-                       
-               for (Map<String, String> entry : maListe) {
-                    
+              List<Map<String, String>> maListe = new ArrayList<Map<String, String>>();
+             
+              maListe = (ArrayList<Map<String, String>>)request.getAttribute("listmedia"); 
+                  // if (maListe != null) {
+                       for (Map<String, String> entry : maListe) {
+                                    
                       
                          %> 
                     <div class="card mt-4">
@@ -68,10 +72,14 @@
                             if (a!=0) 
                             for (int i=0;i<a;i++)
                              out.print("&#9733");
-                             %> </span>
-			<!-- <p class="card-text"><%= entry.get("nbv") %></p> -->
-          <p class="v">   <%= entry.get("nbv") %> <br> <p/>
-                          <span><a href="voter?action=voter&id=<%= entry.get("id") %>" > voter </a> </span></div>
+                             %></span>
+			
+                         <p class="v">   <%= entry.get("nbv") %> <br> <p/>
+                         <span>
+                             <a  href="Supprimer?action=supprimer&id=<%= entry.get("id") %>" > Supprimer </a>
+                         </span>
+                         
+            </div>
           </div>
                        <%        
                              }
@@ -80,7 +88,7 @@
                    
                          %>
               
-             
+       
             
           <!-- /.card -->
 
@@ -104,22 +112,12 @@
       </div>
       <!-- /.container -->
     </footer>
-
+ </form>
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script>
-        var max = 0 ;
-$(document).ready(function(){
-    $("#vote").click(function(){
-        $(".text-warning").append(" &#9733; ");
-       $("#vote").prop("disabled",true);
-    
-        
-    });
-});
-</script>
+ 
 
     </body>
 </html>

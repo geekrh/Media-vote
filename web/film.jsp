@@ -26,7 +26,7 @@
   </head>
 
   <body>
-
+    
     <!-- Navigation -->
     
     <%@include file="nav.jsp" %>
@@ -39,7 +39,7 @@
         <div class="col-lg-3">
           <h1 class="my-4">Vote</h1>
           <div class="list-group">
-            <a href="#" class="list-group-item ">Film</a>
+            <a href="film.jsp" class="list-group-item ">Film</a>
             <a href="jeux.jsp" class="list-group-item "id="jeux">Jeux</a>
             <a href="livre.jsp" class="list-group-item ">Livre</a>
             <a href="serie.jsp" class="list-group-item ">Serie</a>
@@ -50,7 +50,7 @@
 
         <div class="col-lg-9" id="contenu">
          
-
+  <form action="voter" method="GET" enctype="multipart/form-data" >
          <%  
             daomedia modetud= new  daomedia();
             List<Map<String, String>> maListe = modetud.afficherFilm();
@@ -65,11 +65,13 @@
                     <div class="card-body">
                         <h3 class="card-title"><%= entry.get("titre") %></h3>  
                          <p class="card-text"><%= entry.get("description") %></p>
-                         <span class="text-warning">&#9733; </span>
-			<!-- <p class="card-text"><%= entry.get("nbv") %></p> -->
-                         <p class="v">   1.0 stars<br> <p/>
-              <span><button id="vote"><img src="image/voter.png" width="30" height="30"></button> voter</span>
-            </div>
+                         <span class="text-warning"><% int a=Integer.parseInt(entry.get("nbr_etoile"));
+                            if (a!=0) 
+                            for (int i=0;i<a;i++)
+                             out.print("&#9733");
+                             %> </span>
+	  <p class="v">   <%= entry.get("nbv") %> <br> <p/>
+                       <span><a href="voter?action=voter&id='<%= entry.get("id") %>'" > voter </a> </span> </div>
           </div>
                        <%        
                              }
@@ -108,7 +110,7 @@
     <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
     <script>
-        var max = 0 ;
+     /*   var max = 0 ;
 $(document).ready(function(){
     $("#vote").click(function(){
         $(".text-warning").append(" &#9733; ");
@@ -116,8 +118,8 @@ $(document).ready(function(){
     
         
     });
-});
+});*/
 </script>
-
+      </form>
     </body>
 </html>

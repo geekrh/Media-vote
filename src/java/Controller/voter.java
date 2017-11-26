@@ -45,6 +45,7 @@ public class voter extends HttpServlet {
                //int numvote =(int) request.getAttribute("valeur") ;
             
                d.vote(Integer.parseInt(request.getParameter("id")));
+               out.print(Integer.parseInt(request.getParameter("id")));
               //response.sendRedirect("redirect.jsp");
               List<Map<String, String>> lst = new ArrayList<Map<String, String>>(); 
                        lst = d.afficherFilm() ; 
