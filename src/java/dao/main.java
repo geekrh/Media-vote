@@ -17,13 +17,13 @@ import java.util.* ;
 public class main {
     public static void main (String args[])
     {  
-        List<Map<String, String>> maListe = new ArrayList<Map<String, String>>();
-        
+  /*      List<Map<String, String>> maListe = new ArrayList<Map<String, String>>();
+      */  
         daocategorie m = new daocategorie();
-      
+      /*
           maListe =  m.ListerCategorie() ;
         
-          
+    */      
                   
                    m.mise_a_jour();
                      

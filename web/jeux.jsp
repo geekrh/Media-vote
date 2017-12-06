@@ -51,12 +51,13 @@
          
 
          <%  
-            daomedia modetud= new  daomedia();
-            List<Map<String, String>> maListe = modetud.afficherJeux();
             
-                       
-               for (Map<String, String> entry : maListe) {
-                    
+              List<Map<String, String>> maListe = new ArrayList<Map<String, String>>();
+             
+              maListe = (ArrayList<Map<String, String>>)request.getAttribute("listmedia"); 
+                  // if (maListe != null) {
+                       for (Map<String, String> entry : maListe) {
+                                    
                       
                          %> 
                     <div class="card mt-4">

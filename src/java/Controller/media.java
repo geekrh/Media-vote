@@ -10,6 +10,7 @@ import Modele.model_media;
 import dao.beans.categorie;
 import dao.daomedia ;
 import dao.beans.membre;
+import dao.daocategorie;
 import dao.daomembre ;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -46,7 +47,8 @@ public class media extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private daomedia m = new daomedia() ;
+    private daomedia media = new daomedia() ;
+    private daocategorie categorie=new daocategorie();
     public static final String CHEMIN = "chemin";
     public static final int TAILLE_TAMPON = 10240; // 10 ko
     
@@ -120,7 +122,18 @@ private void ecrireFichier( Part part, String nomFichier, String chemin ) throws
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
         
-         
+            if (request.getParameter("action").equals("filtrer"))
+            {
+               int categorie=Integer.parseInt(request.getParameter("id"));
+               
+                     List<Map<String, String>> lst = new ArrayList<Map<String, String>>(); 
+                     lst = this.media.affichermediaParCategorie(categorie);
+                     request.setAttribute("listmedia", lst);
+                     request.setAttribute("listcategorie",this.categorie.ListerCategorie());
+                     RequestDispatcher rd = request.getRequestDispatcher("page_principale.jsp");
+                     rd.forward(request, response);}
+                    
+            
            
            if (request.getParameter("plus")!= null)
            
@@ -158,7 +171,7 @@ private void ecrireFichier( Part part, String nomFichier, String chemin ) throws
                
     
     String Exist="false" ;
-           lst = m.affichermedia();
+           lst = media.affichermedia();
            
             for (Map<String, String> entry : lst) {
              
@@ -174,7 +187,7 @@ private void ecrireFichier( Part part, String nomFichier, String chemin ) throws
               { 
              categorie c=new categorie(id_categorie);
              dao.beans.media media_ajouter=new dao.beans.media(titre, desc,"image/"+nomFichier,c,0);
-             m.ajoutmedia(media_ajouter);
+             media.ajoutmedia(media_ajouter);
              // Ajout du nouveau MEDIA
              
              /*
@@ -183,7 +196,7 @@ private void ecrireFichier( Part part, String nomFichier, String chemin ) throws
              
             lst= new ArrayList<Map<String, String>>();
              
-             lst = m.afficherFilm() ;
+             lst = media.afficherFilm() ;
              
                     // lst.add(m.afficherMediaRecent(titre));
               

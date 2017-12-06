@@ -21,7 +21,7 @@ import utilitaire.SingletonConnection;
     
 /**
  *
- * @author hamdi
+ * @author Ahmed
  */
 public class daocategorie implements interface_dao_categorie{
     daomedia m=new daomedia();
@@ -52,7 +52,7 @@ public class daocategorie implements interface_dao_categorie{
                   // if (maListe != null) {
                        for (Map<String, String> entry : maListe) {
                              try{  
-                            int a=m.SUMMEDIA(Integer.parseInt(entry.get("id")));
+                            int a=m.SUMMEDIAINCATEGORIE(Integer.parseInt(entry.get("id")));
                             Connection con=SingletonConnection.getCon();
             PreparedStatement ps=con.prepareStatement("update categorie set nbr_media = ? where id_categorie = ?");
             ps.setInt(1, a);
@@ -81,10 +81,10 @@ public class daocategorie implements interface_dao_categorie{
             Map<String, String> news = new HashMap<String, String>();     
             c.setId_categorie(rs.getInt("id_categorie"));
             c.setLibelle(rs.getString("libelle"));
-            c.setNbr_media(0);
+            c.setNbr_media(rs.getInt("nbr_media"));
             String id = Integer.toString(c.getId_categorie())   ;
             
-            news.put("id", id);
+            news.put("id_categorie", id);
             news.put("libelle",c.getLibelle()) ;
             news.put("nbr_media",String.valueOf(c.getNbr_media()));
             maListe.add(news);

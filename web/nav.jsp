@@ -1,7 +1,7 @@
 <%-- 
     Document   : nav.jsp
     Created on : 25 nov. 2017, 08:10:10
-    Author     : hamdi
+    Author     : Ahmed
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -34,7 +34,7 @@
                 <a class="nav-link" href="Profil">Profile</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="Addmedia.jsp">Add</a>
+            <a class="nav-link" href="Addmedia.jsp">Add Article</a>
                 </li>
             <li class="nav-item">
               <a class="nav-link" href="index.jsp">Log out</a>

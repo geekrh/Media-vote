@@ -16,7 +16,7 @@
     <link href="css2/shop-item.css" rel="stylesheet">
     <style>
        
-}
+
     </style>
     </head>
     <body >

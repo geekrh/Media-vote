@@ -76,7 +76,7 @@ public class Connection extends HttpServlet {
                      lst = media.afficherFilm();
                      List<Map<String, String>> lstcat = new ArrayList<Map<String, String>>();
                      lstcat=categorie.ListerCategorie();
-                     request.setAttribute("listcategorie", lst);
+                     request.setAttribute("listcategorie", lstcat);
                      request.setAttribute("listmedia", lst);
                      session.setAttribute("model", rep);
                      if (rep.getType().equals("utilisateur")){

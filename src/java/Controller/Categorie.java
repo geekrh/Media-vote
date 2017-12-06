@@ -5,8 +5,14 @@
  */
 package Controller;
 
+import dao.daocategorie;
+import dao.daomedia;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author hamdi
+ * @author Ahmed
  */
 public class Categorie extends HttpServlet {
 
@@ -27,20 +33,27 @@ public class Categorie extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private daocategorie cat=new daocategorie();
+    private daomedia d = new daomedia();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Categorie</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Categorie at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+           
+             if (request.getParameter("action").equals("categorie") )
+           {
+               List<Map<String, String>> lstcat = new ArrayList<Map<String, String>>();
+                     lstcat=cat.ListerCategorie();
+                     request.setAttribute("listcategorie", lstcat);
+              List<Map<String, String>> lst = new ArrayList<Map<String, String>>(); 
+                       lst = d.affichermediaParCategorie (Integer.parseInt(request.getParameter("id")));
+                        // out.print(Integer.parseInt(request.getParameter("id_cat"))); 
+                         request.setAttribute("lstmedia", lst);
+                
+                RequestDispatcher rd = request.getRequestDispatcher("Affichage.jsp");
+                rd.forward(request, response);
+           }
         }
     }
 

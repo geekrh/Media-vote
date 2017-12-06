@@ -5,6 +5,7 @@
  */
 package Modele;
 import dao.beans.media;
+import dao.daomedia;
 import java.util.List;
 import java.util.Map;
 import dao.interface_dao_media;
@@ -14,12 +15,23 @@ import dao.interface_dao_media;
  */
 public class model_media {
     private media media;
-    private interface_dao_media inter;
+    private daomedia dao = new daomedia();
     
-    public  List<Map<String, String>> afficherme () {
+    public  List<Map<String, String>> affichermedia () {
     
-       return inter.affichermedia() ;
-    
+       return dao.affichermedia() ;
+    }
+    public List<Map<String, String>> affiche_media_par_categorie(int id_categorie)
+     {
+         return this.dao.affichermediaParCategorie(id_categorie);
+     }
+    public  void ajouter_media (media m)
+    {
+    this.dao.ajoutmedia(m);
+    }
+    public void Supprimer_media(int id_media)
+    {
+    this.dao.Supprimer_Media(id_media);
     }
     
     

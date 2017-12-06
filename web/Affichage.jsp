@@ -1,11 +1,17 @@
+<%-- 
+    Document   : Categorie
+    Created on : 27 nov. 2017, 14:21:16
+    Author     : Ahmed
+--%>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
+
 <%@ page import="java.util.*" %>
-<%@ page import="dao.beans.*" %>
-<%@ page import="static java.lang.System.out" %>
+<%@page import="java.util.Iterator" %>
+<%@page import="java.util.List"%>
+<%@page import="dao.beans.media" %>
+<%@page import="dao.daomedia" %>
 
 <!DOCTYPE html>
-
-
 <html>
      <head>
 
@@ -25,17 +31,17 @@
   </head>
 
   <body>
-
-    <!-- Navigation -->
-    <%@include file="nav.jsp" %>
-    <!-- Page Content -->
     
+    <!-- Navigation -->
+    
+    <%@include file="nav.jsp" %>
+
+    <!-- Page Content -->
     <div class="container">
 
       <div class="row">
 
         <div class="col-lg-3">
-            
           <h1 class="my-4">Vote</h1>
           <%  
             
@@ -57,17 +63,16 @@
              }
              %> 
         </div>
-            
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9" id="contenu">
-          
-       <form action="voter" method="GET" enctype="multipart/form-data" >
-         <%  
+         
+  <form action="voter" method="GET" enctype="multipart/form-data" >
+        <%  
             
               List<Map<String, String>> maListe = new ArrayList<Map<String, String>>();
              
-              maListe = (ArrayList<Map<String, String>>)request.getAttribute("listmedia"); 
+              maListe = (ArrayList<Map<String, String>>)request.getAttribute("lstmedia"); 
                   // if (maListe != null) {
                        for (Map<String, String> entry : maListe) {
                                     
@@ -82,13 +87,9 @@
                             if (a!=0) 
                             for (int i=0;i<a;i++)
                              out.print("&#9733");
-                             %></span>
-			
-                         <p class="v">   <%= entry.get("nbv") %> <br> <p/>
-                         <span>
-                             <a  href="voter?action=voter&id=<%= entry.get("id") %>" > voter </a>
-                         </span>
-            </div>
+                             %> </span>
+	  <p class="v">   <%= entry.get("nbv") %> <br> <p/>
+                       <span><a href="voter?action=voter&id='<%= entry.get("id") %>'" > voter </a> </span> </div>
           </div>
                        <%        
                              }
@@ -97,7 +98,7 @@
                    
                          %>
               
-       
+             
             
           <!-- /.card -->
 
@@ -121,12 +122,22 @@
       </div>
       <!-- /.container -->
     </footer>
- </form>
+
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
- 
-
+    <script>
+     /*   var max = 0 ;
+$(document).ready(function(){
+    $("#vote").click(function(){
+        $(".text-warning").append(" &#9733; ");
+       $("#vote").prop("disabled",true);
+    
+        
+    });
+});*/
+</script>
+      </form>
     </body>
 </html>
